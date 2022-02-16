@@ -29,9 +29,9 @@ export const transparentTheme = EditorView.theme({
 });
 
 const syntaxHighlighting = HighlightStyle.define([
-  { tag: tags.heading1, fontSize: "1.6em", fontWeight: "bold" },
-  { tag: tags.heading2, fontSize: "1.4em", fontWeight: "bold" },
-  { tag: tags.heading3, fontSize: "1.2em", fontWeight: "bold" },
+  { tag: tags.heading1, fontSize: "1.4em", fontWeight: "bold" },
+  { tag: tags.heading2, fontSize: "1.2em", fontWeight: "bold" },
+  { tag: tags.heading3, fontSize: "1.1em", fontWeight: "bold" },
 ]);
 
 interface UseCodeMirrorProps {
