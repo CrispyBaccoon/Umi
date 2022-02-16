@@ -26,6 +26,10 @@ body {
   font-family: "Fira Code";
 }
 
+.ͼ1 .cm-gutter {
+  min-width: 3ch;
+}
+
 .drag {
   app-region: drag;
 }
