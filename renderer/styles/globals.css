@@ -22,7 +22,7 @@ body {
   src: url("../public/fonts/FiraCode-Regular.ttf");
 }
 
-// Code Mirror
+/* Code Mirror */
 .ͼ1 .cm-scroller {
   font-family: "Fira Code";
 }
@@ -31,7 +31,7 @@ body {
   min-width: 3ch;
 }
 
-// Window
+/* Window */
 .drag {
   app-region: drag;
 }
@@ -40,7 +40,7 @@ body {
   app-region: no-drag;
 }
 
-// Main Components
+/* Main Components */
 .App {
   display: flex;
   flex-direction: row;
@@ -51,7 +51,7 @@ body {
   flex: 0 0 50%;
 }
 
-// Markdown Preview
+/* Markdown Preview */
 .preview.markdown-body {
   flex: 0 0 50%;
   padding: 12px;
