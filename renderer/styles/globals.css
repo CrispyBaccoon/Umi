@@ -17,6 +17,15 @@ body {
 
 @tailwind utilities;
 
+@font-face {
+  font-family: "Fira Code";
+  src: url("../public/fonts/FiraCode-Regular.ttf");
+}
+
+.ͼ1 .cm-scroller {
+  font-family: "Fira Code";
+}
+
 .drag {
   app-region: drag;
 }
