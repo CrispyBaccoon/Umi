@@ -12,7 +12,7 @@ function App() {
       <Head>
         <title>Umi</title>
       </Head>
-      <div className="w-full App">
+      <div className="w-full h-full App">
         <Editor onChange={handleDocChange} initialDoc={doc} />
         <Preview doc={doc} />
       </div>
