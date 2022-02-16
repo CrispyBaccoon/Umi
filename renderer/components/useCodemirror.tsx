@@ -59,7 +59,7 @@ const useCodeMirror = <T extends Element>(
         indentOnInput(),
         bracketMatching(),
         defaultHighlightStyle.fallback,
-        highlightActiveLine(),
+        // highlightActiveLine(),
         markdown({
           base: markdownLanguage,
           codeLanguages: languages,
