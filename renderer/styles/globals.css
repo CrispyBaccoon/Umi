@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+
+html {
+  @apply bg-transparent;
+}
+
+body {
+  @apply rounded-md backdrop-blur-md;
+  background-color: #262626;
+  height: 100vh;
+}
+
+#__next {
+  @apply h-full;
+}
+
+@tailwind utilities;
+
+.drag {
+  app-region: drag;
+}
+
+.no-drag {
+  app-region: no-drag;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+}
+
+.editor-wrapper {
+  height: 100%;
+  flex: 0 0 50%;
+}
+
+.preview.markdown-body {
+  flex: 0 0 50%;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: auto;
+  color: #abb2bf;
+  /* background-color: transparent; */
+  background-color: rgba(27, 31, 35, 0.45);
+}
+
+.preview.markdown-body pre {
+  background-color: rgba(27, 31, 35, 0.45);
+}
+
+.preview.markdown-body ul {
+  list-style-type: disc;
+}
