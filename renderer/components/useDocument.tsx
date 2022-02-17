@@ -1,10 +1,10 @@
 import { ipcRenderer } from "electron";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const useDocument = async <T extends Element>(
   documentPath: string
-): Promise<[string, (string) => void]> => {
-  const loadedText = await ipcRenderer
+): Promise<[string, Dispatch<SetStateAction<string>>]> => {
+  const loadedText: string = await ipcRenderer
     .invoke("Document/Read")
     .then((text) => text);
 
