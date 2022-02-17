@@ -126,15 +126,18 @@ if (isProd) {
     ipcMain.handle(eventHandle.event, eventHandle.handle);
   });
 
-  ipcMain.handle("Document/Read", (e, ...args: [PathLike, ...any]) => {
+  ipcMain.handle("Document/Read", async (e, ...args: [PathLike, ...any]) => {
     return readFileSync(args[0]);
   });
 
-  ipcMain.handle("Document/Save", (e, ...args: [PathLike, string, ...any]) => {
-    return writeFileSync(args[0], args[1]);
-  });
+  ipcMain.handle(
+    "Document/Save",
+    async (e, ...args: [PathLike, string, ...any]) => {
+      return writeFileSync(args[0], args[1]);
+    }
+  );
 
-  ipcMain.handle("Document/Watch", (e, ...args: [PathLike, ...any]) => {
+  ipcMain.handle("Document/Watch", async (e, ...args: [PathLike, ...any]) => {
     return watchFile(args[0], (e) => {
       ipcMain.emit("Document/Update", readFileSync(args[0]));
     });
