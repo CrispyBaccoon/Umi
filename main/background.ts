@@ -6,6 +6,7 @@ import {
   session,
 } from "electron";
 import serve from "electron-serve";
+import { PathLike, readFileSync, watchFile, writeFileSync } from "fs";
 import { createWindow } from "./helpers";
 const path = require("path");
 const os = require("os");
@@ -123,5 +124,19 @@ if (isProd) {
 
   eventHandles.map((eventHandle) => {
     ipcMain.handle(eventHandle.event, eventHandle.handle);
+  });
+
+  ipcMain.handle("Document/Read", (e, ...args: [PathLike, ...any]) => {
+    return readFileSync(args[0]);
+  });
+
+  ipcMain.handle("Document/Save", (e, ...args: [PathLike, string, ...any]) => {
+    return writeFileSync(args[0], args[1]);
+  });
+
+  ipcMain.handle("Document/Watch", (e, ...args: [PathLike, ...any]) => {
+    return watchFile(args[0], (e) => {
+      ipcMain.emit("Document/Update", readFileSync(args[0]));
+    });
   });
 })();
