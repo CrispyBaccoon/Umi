@@ -6,7 +6,13 @@ import {
   session,
 } from "electron";
 import serve from "electron-serve";
-import { PathLike, readFileSync, watchFile, writeFileSync } from "fs";
+import {
+  existsSync,
+  PathLike,
+  readFileSync,
+  watchFile,
+  writeFileSync,
+} from "fs";
 import { createWindow } from "./helpers";
 const path = require("path");
 const os = require("os");
@@ -127,6 +133,9 @@ if (isProd) {
   });
 
   ipcMain.handle("Document/Read", async (e, ...args: [PathLike, ...any]) => {
+    if (!existsSync(args[0])) {
+      writeFileSync(args[0], "");
+    }
     return readFileSync(args[0]);
   });
 
