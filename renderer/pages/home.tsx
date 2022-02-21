@@ -4,7 +4,7 @@ import Editor from "../components/Editor";
 import Preview from "../components/preview";
 import { ipcRenderer } from "electron";
 
-const useDocument = async <T extends Element>(
+const useDocument = async (
   documentPath: string
 ): Promise<[string, Dispatch<SetStateAction<string>>]> => {
   const loadedText: string = await ipcRenderer
