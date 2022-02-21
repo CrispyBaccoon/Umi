@@ -9,8 +9,10 @@ import serve from "electron-serve";
 import {
   existsSync,
   PathLike,
+  readFile,
   readFileSync,
   watchFile,
+  writeFile,
   writeFileSync,
 } from "fs";
 import { createWindow } from "./helpers";
@@ -136,19 +138,22 @@ if (isProd) {
     if (!existsSync(args[0])) {
       writeFileSync(args[0], "");
     }
-    return readFileSync(args[0]);
+    return readFile(args[0], (err, data) => ipcMain.emit('@Document/Read', err ?? data));
   });
 
   ipcMain.handle(
     "Document/Save",
     async (e, ...args: [PathLike, string, ...any]) => {
-      return writeFileSync(args[0], args[1]);
+      return writeFile(args[0], args[1], (err) => err ?? false);
     }
   );
 
   ipcMain.handle("Document/Watch", async (e, ...args: [PathLike, ...any]) => {
     return watchFile(args[0], (e) => {
-      ipcMain.emit("Document/Update", readFileSync(args[0]));
+      ipcMain.emit(
+        "Document/Update",
+        readFile(args[0], (err, data) => err ?? data)
+      );
     });
   });
 })();
