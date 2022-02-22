@@ -147,13 +147,4 @@ if (isProd) {
       return writeFile(args[0], args[1], (err) => err ?? false);
     }
   );
-
-  ipcMain.handle("Document/Watch", async (e, ...args: [PathLike, ...any]) => {
-    return watchFile(args[0], (e) => {
-      ipcMain.emit(
-        "Document/Update",
-        readFile(args[0], (err, data) => err ?? data)
-      );
-    });
-  });
 })();
