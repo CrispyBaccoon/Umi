@@ -153,10 +153,9 @@ if (isProd) {
   });
 
   ipcMain.on("Document/Save", (e, ...args: [PathLike, string, ...any]) => {
-    mainWindow.webContents.send(
-      "@Document/Save",
-      writeFileSync(args[0], args[1])
-    );
+    // mainWindow.webContents.send("@Document/Save", readFileSync(args[0]));
+    console.log(args);
+    writeFileSync(args[0][0], args[0][1]);
     respond("Saved File: " + args[0]);
   });
 
