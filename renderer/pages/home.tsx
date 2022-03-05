@@ -6,16 +6,9 @@ import { ipcRenderer } from "electron";
 import useDocument from "../components/useDocument";
 
 function App() {
-  let [document, setDocument]:
-    | [string, Dispatch<SetStateAction<string>>]
-    | ["", () => void] = [null, null];
-  useDocument("D:/home/kitchen/documents/document.md").then(
-    (useDocumentHook) => {
-      [document, setDocument] = useDocumentHook;
-    }
+  const [document, setDocument] = useDocument(
+    "D:/home/kitchen/documents/document.md"
   );
-
-  // const [document, setDocument] = useState<string>(document);
 
   const handleDocChange = useCallback(
     (newDoc) => (setDocument == null ? setDocument(newDoc) : (n) => n),
