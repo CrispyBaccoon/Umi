@@ -23,6 +23,10 @@ const useDocument = (
     console.log(document.doc);
   });
 
+  ipcRenderer?.on("@Keybinding/Save", (e) => {
+    ipcRenderer.send("Document/Save", [documentPath, document.doc]);
+  });
+
   useEffect(() => {
     ipcRenderer?.send("Document/Read", documentPath);
   }, []);
