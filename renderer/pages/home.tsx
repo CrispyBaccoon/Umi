@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Head from "next/head";
 import Editor from "../components/Editor";
 import Preview from "../components/preview";
@@ -11,7 +17,7 @@ function App() {
   );
 
   const handleDocChange = useCallback(
-    (newDoc) => setDocument(newDoc),
+    (newDoc) => setDocument({ doc: newDoc, didUpdate: true }),
     [setDocument]
   );
   return (
@@ -20,8 +26,12 @@ function App() {
         <title>Umi</title>
       </Head>
       <div className="w-full h-full App">
-        <Editor onChange={handleDocChange} initialDoc={document} />
-        <Preview doc={document} />
+        {document.didUpdate ? (
+          <Editor onChange={handleDocChange} initialDoc={document.doc} />
+        ) : (
+          <></>
+        )}
+        <Preview doc={document.doc} />
       </div>
     </React.Fragment>
   );
