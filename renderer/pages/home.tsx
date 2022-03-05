@@ -3,18 +3,7 @@ import Head from "next/head";
 import Editor from "../components/Editor";
 import Preview from "../components/preview";
 import { ipcRenderer } from "electron";
-
-const useDocument = async (
-  documentPath: string
-): Promise<[string, Dispatch<SetStateAction<string>>]> => {
-  const loadedText: string = await ipcRenderer
-    .invoke("Document/Read", documentPath)
-    .then((text) => text);
-
-  const [Text, setText] = useState(loadedText);
-
-  return [Text, setText];
-};
+import useDocument from "../components/useDocument";
 
 function App() {
   let [document, setDocument]:
