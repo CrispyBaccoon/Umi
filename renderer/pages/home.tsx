@@ -11,7 +11,7 @@ function App() {
   );
 
   const handleDocChange = useCallback(
-    (newDoc) => (setDocument == null ? setDocument(newDoc) : (n) => n),
+    (newDoc) => setDocument(newDoc),
     [setDocument]
   );
   return (
