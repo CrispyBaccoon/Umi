@@ -105,6 +105,10 @@ if (isProd) {
     handle: (event: IpcMainInvokeEvent, ...arg: any[]) => any;
   }
 
+  const respond = (message: string) => {
+    console.log("[ipcMain] " + message);
+  };
+
   const eventHandles: EventHandle[] = [
     {
       event: "AppQuit",
@@ -134,17 +138,23 @@ if (isProd) {
     ipcMain.handle(eventHandle.event, eventHandle.handle);
   });
 
-  ipcMain.handle("Document/Read", async (e, ...args: [PathLike, ...any]) => {
+  ipcMain.on("Document/Read", (e, ...args: [PathLike, ...any]) => {
     if (!existsSync(args[0])) {
       writeFileSync(args[0], "");
+      respond("Created File: " + args[0]);
     }
-    return readFile(args[0], (err, data) => ipcMain.emit('@Document/Read', err ?? data));
+    mainWindow.webContents.send(
+      "@Document/Read",
+      readFileSync(args[0], "utf-8")
+    );
+    respond("Read File: " + args[0]);
   });
 
-  ipcMain.handle(
-    "Document/Save",
-    async (e, ...args: [PathLike, string, ...any]) => {
-      return writeFile(args[0], args[1], (err) => err ?? false);
-    }
-  );
+  ipcMain.on("Document/Save", (e, ...args: [PathLike, string, ...any]) => {
+    mainWindow.webContents.send(
+      "@Document/Save",
+      writeFileSync(args[0], args[1])
+    );
+    respond("Saved File: " + args[0]);
+  });
 })();
