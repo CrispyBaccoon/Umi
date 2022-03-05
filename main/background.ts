@@ -3,6 +3,8 @@ import {
   BrowserWindow,
   ipcMain,
   IpcMainInvokeEvent,
+  Menu,
+  MenuItem,
   session,
 } from "electron";
 import serve from "electron-serve";
@@ -157,4 +159,25 @@ if (isProd) {
     );
     respond("Saved File: " + args[0]);
   });
+
+  //@ts-ignore
+  let menu = new Menu();
+  //@ts-ignore
+  menu.append(
+    new MenuItem({
+      label: "Save File",
+      submenu: [
+        {
+          label: "",
+          accelerator: process.platform == "darwin" ? "Cmd+S" : "Ctrl+S",
+          click: () => {
+            mainWindow.webContents.send("@Keybinding/Save");
+          },
+        },
+      ],
+    })
+  );
+
+  //@ts-ignore
+  Menu.setApplicationMenu(menu);
 })();
